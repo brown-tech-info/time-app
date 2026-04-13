@@ -1,6 +1,6 @@
 {
   "name": "time-zone-meeting-planner",
-  "private": false,
+  "private": true,
   "version": "1.0.0",
   "description": "A stateless web app to compare meeting times across up to 10 time zones",
   "type": "module",

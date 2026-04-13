@@ -48,7 +48,8 @@ export function useShareUrlDecoder(allCities: City[]): ShareState | null {
     const home = homeStr ? findCity(homeStr) : null;
 
     const timeStr = params.get('time');
-    const meetingTime = timeStr ? new Date(timeStr) : new Date();
+    const parsed = timeStr ? new Date(timeStr) : new Date();
+    const meetingTime = isNaN(parsed.getTime()) ? new Date() : parsed;
 
     const comparisons: LocationEntry[] = [];
     for (let i = 0; i < 10; i++) {
