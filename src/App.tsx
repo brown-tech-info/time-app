@@ -56,12 +56,16 @@ export default function App() {
   }, []);
 
   const handleReset = useCallback(() => {
-    setHomeLocation(null);
     setMeetingTime(nextHalfHour());
     setComparisons([]);
-    // Clear share params from URL
     window.history.replaceState(null, '', window.location.pathname);
-  }, []);
+    // Re-apply detected city if available
+    if (detectedCity) {
+      setHomeLocation({ id: 'home', city: detectedCity });
+    } else {
+      setHomeLocation(null);
+    }
+  }, [detectedCity]);
 
   const hasData = homeLocation !== null || comparisons.length > 0;
 
