@@ -1,86 +1,86 @@
 # Project Charter
 
 ## One-liner
-Provide a reusable, language-agnostic process template for guardrail-driven, agentic workflows using GitHub Copilot.
+A mobile-responsive web app that lets users visualize and compare meeting times across up to 10 time zones simultaneously.
 
 ## Context
-- Why now: Teams adopting Copilot agents often lack a consistent operating model, leading to scope creep, rework, and loss of context.
-- Who cares: Developers, architects, and technical leads experimenting with agentic workflows.
-- Current pain: Ad-hoc prompting, undocumented decisions, and agents acting without structure.
+- Why now: Remote work is the norm; scheduling across time zones is a daily friction point for distributed professionals.
+- Who cares: Remote professionals who regularly coordinate meetings with colleagues, clients, or partners in different cities/time zones.
+- Current pain: Mentally converting between multiple time zones is error-prone, and existing tools are either too complex or don't show all zones at a glance.
 
 ## Goals (what success looks like)
-- G1: Enforce a clear Charter → Requirements → Plan → Execute → Review pipeline.
-- G2: Preserve project context across sessions using durable `/docs` artifacts.
-- G3: Enable safe experimentation with agents without assuming tech stacks.
+- G1: User can specify their location (city) and a proposed meeting time.
+- G2: User can add up to 10 additional locations and instantly see the corresponding local times.
+- G3: The app provides a clear visual indication of whether a proposed time is reasonable (e.g., business hours vs. early morning/late night) for each location.
+- G4: Works well on both desktop and mobile browsers.
 
 ## Non-goals (explicitly out of scope)
-- N1: Prescribing any specific programming language or framework.
-- N2: Providing application or product starter code.
-- N3: Automating CI/CD or deployment workflows (process only).
+- N1: Calendar integration (Google Calendar, Outlook, etc.).
+- N2: User accounts, authentication, or persistent data storage.
+- N3: Meeting invitations or email/notification features.
+- N4: Native mobile apps (iOS/Android).
 
 ## Users / Stakeholders
-- Primary user: Individual developer or architect using Copilot CLI.
-- Secondary user: Teams standardizing agentic workflows.
-- Sponsor / approver: Repo owner.
+- Primary user: Remote professionals scheduling meetings across time zones.
+- Sponsor / approver: Solo developer (repo owner).
 
 ## Constraints & Guardrails
-- Language/framework agnostic.
+- Stateless/anonymous — no user accounts, no server-side data persistence.
+- Tech stack to be decided during the architecture phase.
 - Human-in-the-loop for architectural and security decisions.
 - Documentation-first discipline.
-
-TEMPLATE NOTE: All <placeholder> fields in this section must be completed for real projects.
 
 ## Security & Privacy (mandatory)
 
 ### Data classification assumption
-- Default classification: <Public | Internal | Confidential | Highly Confidential>
-- Data types expected: <code only | synthetic data | real customer data>
-- PII/PHI: <None by default. If any, specify exactly what.>
+- Default classification: Public
+- Data types expected: Code only; no user data stored.
+- PII/PHI: None. The app is stateless and does not collect or store personal information.
 
 ### Hard stop (must ask before proceeding)
 Ask the human before ANY of the following:
-- Handling or storing real customer data, personal data (PII/PHI), credentials, tokens, secrets, or keys
 - Adding external dependencies (packages, containers, services) or enabling network access patterns
-- Implementing or changing authentication/authorization flows
 - Creating anything that could materially change costs, security posture, or data residency
 - Writing automation that can modify or delete data/resources (cloud, SaaS, GitHub, etc.)
 
 ### Non-negotiable rules
 - Never commit secrets (API keys, tokens, certs, passwords).
-- Never paste real customer data into the repo. Use synthetic examples only.
+- Use synthetic examples only for any test data.
 - Prefer least privilege: minimal permissions, minimal scope, minimal exposure.
 - Every project must include a validation plan that includes security checks (even if lightweight).
 
 ### Threat model (lite)
-- Assets to protect (what matters): 
-  - A1:
-  - A2:
+- Assets to protect (what matters):
+  - A1: Application availability and integrity (no defacement or injection).
+  - A2: User trust — the app must display correct time zone data.
 - Attack surfaces (where it could go wrong):
-  - S1:
-  - S2:
+  - S1: Client-side input (city names) — potential XSS if not sanitized.
+  - S2: Third-party time zone API (if used) — dependency on external service availability and data accuracy.
 - Top threats / mitigations:
-  - T1 -> M1
-  - T2 -> M2
+  - T1: XSS via city name input → M1: Sanitize/escape all user input before rendering.
+  - T2: Incorrect time zone data from stale library → M2: Use a well-maintained time zone library (e.g., IANA tz database) and keep it updated.
 
 ### Security definition of done (minimum)
-- Security assumptions documented (data classification, use of synthetic vs real data)
-- Secrets handling explicitly addressed
-- Auth/authz changes reviewed (if applicable)
-- Risks captured in `docs/06-risk-register.md` (or in this charter if that file is not used)
+- Security assumptions documented (data classification, use of synthetic vs real data).
+- No secrets required (stateless, no auth).
+- Input sanitization implemented for all user-facing inputs.
+- Risks captured in this charter.
 
 ## Assumptions
-- A1: Users are familiar with GitHub Copilot CLI or VS Code Copilot.
-- A2: Users want repeatable process more than speed.
+- A1: Users know the city or general location of their meeting participants (not necessarily the exact time zone name).
+- A2: Business hours are roughly 08:00–18:00 local time for the purpose of visual indicators.
+- A3: The app does not need to handle historical time zone changes — current offsets only.
 
 ## Risks (top 3)
-- R1: Template becomes too heavyweight.
-- R2: Users bypass the process under time pressure.
-- R3: Agents are added too early without clear guardrails.
+- R1: Time zone data accuracy — DST transitions and edge cases may cause incorrect conversions.
+- R2: City-to-timezone mapping — ambiguous or unrecognized city names could frustrate users.
+- R3: Scope creep — calendar integration and account features are common requests that must stay out of scope.
 
 ## Definition of Done (minimum)
-- DoD1: Charter, requirements, and plan templates exist.
-- DoD2: Repo-wide instructions and AGENTS.md enforce the model.
-- DoD3: Phase 1 audit passes with no blocking gaps.
+- DoD1: User can enter a location and meeting time and see it converted across up to 10 additional locations.
+- DoD2: Visual indicator shows whether each location's local time falls within business hours.
+- DoD3: App is mobile-responsive and works on modern browsers.
+- DoD4: No user data is collected or stored.
 
 ## Next step
-Create a minimal `docs/plan.md` representing the bootstrap of this template.
+Proceed to `docs/01-requirements.md` to define detailed requirements with acceptance criteria.
