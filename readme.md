@@ -75,7 +75,7 @@ npm run preview     # Preview the production build locally
 | Build tool | Vite 8 |
 | Styling | Tailwind CSS 4 |
 | Timezone data | Bundled city dataset (550+ cities, IANA tz IDs) |
-| Deployment | Static SPA — deploy anywhere (Vercel, Netlify, GitHub Pages, S3, etc.) |
+| Deployment | Azure Static Web Apps (free tier) + GitHub Actions CI/CD |
 
 ---
 
@@ -121,7 +121,58 @@ src/
 
 ---
 
-## Deployment
+## Deploy to Azure
+
+[![Deploy to Azure Static Web Apps](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.StaticApp)
+
+### One-click setup (fork & deploy)
+
+1. **Fork** this repository to your GitHub account
+2. Click the **Deploy to Azure** button above (or create a Static Web App in the Azure Portal)
+3. In the Azure Portal:
+   - Select your subscription and resource group
+   - Choose a region (`eastus2`, `centralus`, `westus2`, `westeurope`, or `eastasia`)
+   - SKU: **Free**
+   - Source: **GitHub** → authorize and select your forked repo, branch `main`
+   - Build preset: **Custom**
+   - App location: `/`
+   - Output location: `dist`
+4. Azure will automatically create a GitHub Actions workflow in your fork and deploy the app
+
+### CLI setup (advanced)
+
+```bash
+# Create resource group and Static Web App
+az group create --name rg-time-app --location eastus2
+az staticwebapp create --name time-app-swa \
+  --resource-group rg-time-app \
+  --location eastus2 \
+  --sku Free
+
+# Get deployment token
+az staticwebapp secrets list \
+  --name time-app-swa \
+  --resource-group rg-time-app \
+  --query "properties.apiKey" -o tsv
+
+# Set the token as a GitHub secret
+gh secret set AZURE_STATIC_WEB_APPS_API_TOKEN \
+  --repo <owner>/<repo> \
+  --body "<token>"
+
+# Push to main — the GitHub Actions workflow will deploy automatically
+git push origin main
+```
+
+### CI/CD pipeline
+
+The included workflow (`.github/workflows/azure-static-web-apps.yml`) runs on every push to `main` and on pull requests:
+
+- Installs dependencies, lints, tests, and builds
+- Deploys the `dist/` output to Azure Static Web Apps
+- Creates staging environments for pull requests (auto-cleaned on close)
+
+### Other hosting options
 
 This is a fully static site with no backend. Deploy the `dist/` folder to any static hosting provider:
 

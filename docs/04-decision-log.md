@@ -42,7 +42,14 @@ Record notable decisions that affect architecture, scope, security, or operation
 - Consequences: Dataset must be curated and maintained manually; may miss obscure cities.
 - Follow-ups: Determine minimum city count (~500+) and source for initial dataset.
 
-### D-004: Styling approach
+### D-005: Hosting platform
+- Date: 2026-04-13
+- Decision: Deploy to Azure Static Web Apps (Free tier) with GitHub Actions CI/CD
+- Context: Need a hosting solution for the static SPA with automated deployments.
+- Options considered: Azure Static Web Apps, Azure App Service, Azure Storage + CDN, Vercel, Netlify
+- Chosen option: Azure Static Web Apps — free tier, built-in GitHub Actions integration, staging environments for PRs, global CDN, custom domains.
+- Consequences: Requires Azure subscription; deployment token stored as GitHub secret (`AZURE_STATIC_WEB_APPS_API_TOKEN`).
+- Follow-ups: Document self-service deployment instructions in README for users who fork the repo.
 - Date: 2026-04-13
 - Decision: Use Tailwind CSS
 - Context: Need responsive, utility-first styling for rapid prototyping.
