@@ -30,8 +30,8 @@ A fast, stateless web app that helps remote professionals find the best meeting 
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/time-app-v2.git
-cd time-app-v2
+git clone https://github.com/brown-tech-info/time-app.git
+cd time-app
 
 # Install dependencies
 npm install
