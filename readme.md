@@ -42,6 +42,8 @@ It provides a consistent **operating model, documentation flow, security guardra
 
 The workflow is intentionally explicit to make long‑running or complex work resilient to context loss.
 
+This workflow is intentionally explicit to mitigate context loss in long‑running or complex projects.
+
 ---
 
 ## How to use this repository (recommended path)
