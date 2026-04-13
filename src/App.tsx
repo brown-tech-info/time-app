@@ -55,6 +55,16 @@ export default function App() {
     setComparisons((prev) => prev.filter((l) => l.id !== id));
   }, []);
 
+  const handleReset = useCallback(() => {
+    setHomeLocation(null);
+    setMeetingTime(nextHalfHour());
+    setComparisons([]);
+    // Clear share params from URL
+    window.history.replaceState(null, '', window.location.pathname);
+  }, []);
+
+  const hasData = homeLocation !== null || comparisons.length > 0;
+
   const shareUrl = encodeShareUrl({
     home: homeLocation?.city ?? null,
     meetingTime,
@@ -63,7 +73,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <Header />
+      <Header onNewMeeting={hasData ? handleReset : undefined} />
 
       <main className="mx-auto max-w-5xl px-4 py-8">
         {/* Home location picker */}
