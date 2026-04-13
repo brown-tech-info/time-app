@@ -1,8 +1,8 @@
 ---
 name: requirements-analyst
-description: Converts ideas and charter into crisp requirements and testable acceptance criteria. Updates docs only.
+description: Requirements specialist. Use for requirements, acceptance criteria, scope, user stories, and clarifying questions. Docs-only.
 tools: ["read", "search", "edit"]
-disable-model-invocation: true
+# disable-model-invocation: true
 user-invocable: true
 ---
 

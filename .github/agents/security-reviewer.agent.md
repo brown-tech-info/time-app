@@ -1,8 +1,8 @@
 ---
 name: security-reviewer
-description: Performs security and privacy review. Produces findings and mitigation guidance. Does not implement changes.
+description: Read-only security reviewer. Use for security review/audit, secrets check, PII/PHI concerns, threat modeling, risky changes. No edits.
 tools: ["read", "search"]
-disable-model-invocation: true
+# disable-model-invocation: true
 user-invocable: true
 ---
 

@@ -1,8 +1,8 @@
 ---
 name: docs-editor
-description: Improves documentation clarity and consistency. Works on README and docs only.
+description: Documentation specialist. Use for README, runbook, security docs, clarity, structure, and public polish. Docs-only.
 tools: ["read", "search", "edit"]
-disable-model-invocation: true
+# disable-model-invocation: true
 user-invocable: true
 ---
 

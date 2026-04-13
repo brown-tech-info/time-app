@@ -1,8 +1,8 @@
 ---
 name: solution-architect
-description: Produces high-level and low-level design docs with tradeoffs, risks, and alignment to requirements. Docs only.
+description: Architecture specialist. Use for HLD/LLD, tradeoffs, risks, trust boundaries, and design decisions. Docs-only.
 tools: ["read", "search", "edit"]
-disable-model-invocation: true
+# disable-model-invocation: true
 user-invocable: true
 ---
 

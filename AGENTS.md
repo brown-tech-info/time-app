@@ -8,6 +8,16 @@ If the project is new or unclear:
 - Then update `docs/01-requirements.md`
 - Then create/update `docs/plan.md`
 
+## Agent routing (auto-selection guidance)
+When a request is primarily about:
+- requirements/acceptance criteria → prefer requirements-analyst
+- architecture/HLD/LLD/tradeoffs → prefer solution-architect
+- security/audit/secrets/PII → prefer security-reviewer (read-only)
+- docs clarity/README/runbook → prefer docs-editor
+- PR/release notes/checklists → prefer release-manager
+- tests/verification/validation steps → prefer test-engineer
+Use orchestrator when phase gating or planning is required, and use developer only when explicit implementation is requested.
+
 ## Stop Rules (must ask before proceeding)
 Ask the human before:
 - introducing new external dependencies

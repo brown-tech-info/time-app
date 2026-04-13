@@ -1,8 +1,8 @@
 ---
 name: test-engineer
-description: Adds or improves tests and validation steps. Focuses on verification and repeatable checks.
+description: Verification specialist. Use for tests, validation steps, acceptance criteria coverage, and runbook verification. Limited scope.
 tools: ["read", "search", "edit"]
-disable-model-invocation: true
+# disable-model-invocation: true
 user-invocable: true
 ---
 
